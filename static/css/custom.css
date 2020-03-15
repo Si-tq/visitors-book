@@ -1,0 +1,12 @@
+body {
+    font-family: "Roboto", sans-serif;
+    font-size: 17px;
+    background-color: #fdfdfd;
+    position: relative;
+    min-height: 100vh;
+    padding-top: 3.5rem;
+}
+
+.card {
+    box-shadow: 0 16px 48px #E3E7EB;
+}

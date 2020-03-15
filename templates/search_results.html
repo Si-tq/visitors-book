@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if request.user.is_authenticated %}
+        {% if is_search_results %}
+            <h6 class="border-bottom border-gray pb-2 mb-0">Search results:</h6>
+        {% else %}
+        {% endif %}
+        {% for post in posts %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <p class="card-text text-muted h6"><a
+                            href="{% url 'user_detail' post.author.id %}">{{ post.author }}</a> | {{ post.created_on }}
+                    </p>
+                    {% if post.content|length > 20 %}
+                        <a title="Read more" href="{% url 'post_detail' post.slug %}">
+                            <p class="card-text">{{ post.content|slice:":20" }}...</p>
+                        </a>
+                    {% else %}
+                        <p class="card-text">{{ post.content }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+
+    {% else %}
+        <main class="main"><br>
+            <h1 class="c-type-headline-jumbo" style="text-align: center">Log in to see the content.</h1>
+        </main>
+    {% endif %}
+{% endblock %}

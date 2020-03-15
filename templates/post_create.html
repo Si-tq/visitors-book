@@ -1,0 +1,23 @@
+{% block form %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-5 left">
+                {% if request.user.is_authenticated %}
+                    <form method="post">{% csrf_token %}
+                        <div>Title:</div>
+                        {{ form.title }}
+                        <div>Content:</div>
+                        {{ form.content }}
+                        <div>
+                            <input type="submit" value="Create">
+                        </div>
+                    </form>
+                {% else %}
+                    You must be logged in to add post.
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

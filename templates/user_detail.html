@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12 mt-5 left">
+                <h1 style="color: darkgoldenrod">{{ user.username }} posts:</h1>
+                {% for post in post_list %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ post.title }}</h2>
+                            <p class="card-text text-muted h6"><a
+                                    href="{% url 'user_detail' user.pk %}">{{ post.author }}</a> | {{ post.created_on }}
+                            </p>
+                            {% if post.content|length > 20 %}
+                                <a title="Read more" href="{% url 'post_detail' post.slug %}">
+                                    <p class="card-text">{{ post.content|slice:":20" }}...</p>
+                                </a>
+                            {% else %}
+                                <p class="card-text">{{ post.content }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

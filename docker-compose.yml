@@ -1,0 +1,46 @@
+version: '3.3'
+
+services:
+  web:
+    image: main
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint:
+      - ./wait_for_psql.sh
+      - ./entrypoint.sh
+    volumes:
+      - .:/src
+      - ./static:/static
+      - ./media:/media
+      - ./nginx_logs:/nginx_logs
+    expose:
+      - 80
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgres://$SQL_USER:$SQL_PASSWORD@postgres:5432/$DB_NAME
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./static:/static
+      - ./media:/media
+      - ./nginx_logs:/var/log/nginx/
+    depends_on:
+      - web
+
+  postgres:
+    image: postgres:alpine
+    restart: always
+    volumes:
+      - /var/lib/postgresql
+    environment:
+      - POSTGRES_USER=$SQL_USER
+      - POSTGRES_PASSWORD=$SQL_PASSWORD
+      - POSTGRES_DB=$DB_NAME
