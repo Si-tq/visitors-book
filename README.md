@@ -11,6 +11,11 @@ Adrian Sitko <adrians_s@o2.pl>; <kayen95@gmail.com>
 pip install -r requirements.txt
 ```
 
+### Create your .env file and modify the variables:
+```
+cp .envexample .env
+```
+
 ### Making migrations locally:
 ```
 ./makemigrations.sh
