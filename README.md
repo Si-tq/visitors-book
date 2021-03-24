@@ -26,7 +26,7 @@ cp .envexample .env
 ./rundocker.sh
 ```
 
-### Killing and cleaning docker containers:
+### cleaning docker containers:
 ```
 ./cleaner.sh
 ```
